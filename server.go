@@ -126,7 +126,7 @@ func logar(formato string, valores ...interface{}) {
 }
 
 func main() {
-	url.ConfigurarRepositorio(url.NovoRepositorioMemoria())
+	url.ConfigurarRepositorio(url.NovoRepositorioRedis())
 
 	stats := make(chan string)
 	defer close(stats)
