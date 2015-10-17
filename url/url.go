@@ -13,7 +13,7 @@ const (
 
 type Repositorio interface {
 	IDExiste(id string) bool
-	BuscarPorId(id string) *Url
+	BuscarPorID(id string) *Url
 	BuscarPorURL(url string) *Url
 	Salvar(url Url) error
 	RegistrarClick(id string)
@@ -60,7 +60,7 @@ func BuscarOuCriarNovaUrl(destino string) (u *Url, nova bool, err error) {
 }
 
 func Buscar(id string) *Url {
-	return repo.BuscarPorId(id)
+	return repo.BuscarPorID(id)
 }
 
 func (u *Url) Stats() *Stats {

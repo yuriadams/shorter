@@ -23,12 +23,12 @@ func NovoRepositorioRedis() *repositorioRedis {
 }
 
 func (r *repositorioRedis) IDExiste(id string) bool {
-	_, existe := r.urls[id]
-	return existe
+	url := r.BuscarPorID(id)
+	return url != nil
 }
 
 func (r *repositorioRedis) BuscarPorID(id string) *Url {
-	jsonURL, _ := client.Get(id)
+	jsonURL, _ := client.Hget("urls", id)
 	return r.DecodeURL(jsonURL)
 }
 
@@ -57,16 +57,15 @@ func (r *repositorioRedis) BuscarPorURL(urlDestino string) *Url {
 
 func (r *repositorioRedis) Salvar(url Url) error {
 	urlJSON, _ := json.Marshal(url)
-	// url.Id
-	client.Set("urls", []byte(urlJSON))
-	client.Del("urls")
+	client.Hset("urls", url.Id, []byte(urlJSON))
 	return nil
 }
 
 func (r *repositorioRedis) RegistrarClick(id string) {
-	r.clicks[id]++
+	clicks := r.BuscarClicks(id)
+	client.Hset("clicks", id, clicks++)
 }
 
 func (r *repositorioRedis) BuscarClicks(id string) int {
-	return r.clicks[id]
+	return client.Hget("clicks", id)
 }
