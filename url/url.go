@@ -12,9 +12,9 @@ const (
 )
 
 type Repositorio interface {
-	IdExiste(id string) bool
+	IDExiste(id string) bool
 	BuscarPorId(id string) *Url
-	BuscarPorUrl(url string) *Url
+	BuscarPorURL(url string) *Url
 	Salvar(url Url) error
 	RegistrarClick(id string)
 	BuscarClicks(id string) int
@@ -46,7 +46,7 @@ func RegistrarClick(id string) {
 }
 
 func BuscarOuCriarNovaUrl(destino string) (u *Url, nova bool, err error) {
-	if u = repo.BuscarPorUrl(destino); u != nil {
+	if u = repo.BuscarPorURL(destino); u != nil {
 		return u, false, nil
 	}
 
@@ -78,7 +78,7 @@ func gerarId() string {
 	}
 
 	for {
-		if id := novoId(); !repo.IdExiste(id) {
+		if id := novoId(); !repo.IDExiste(id) {
 			return id
 		}
 	}

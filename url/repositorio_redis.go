@@ -2,6 +2,7 @@ package url
 
 import (
 	"encoding/json"
+	"fmt"
 
 	"github.com/monnand/goredis"
 )
@@ -21,19 +22,34 @@ func NovoRepositorioRedis() *repositorioRedis {
 	}
 }
 
-func (r *repositorioRedis) IdExiste(id string) bool {
+func (r *repositorioRedis) IDExiste(id string) bool {
 	_, existe := r.urls[id]
 	return existe
 }
 
-func (r *repositorioRedis) BuscarPorId(id string) *Url {
-	return r.urls[id]
+func (r *repositorioRedis) BuscarPorID(id string) *Url {
+	jsonURL, _ := client.Get(id)
+	return r.DecodeURL(jsonURL)
 }
 
-func (r *repositorioRedis) BuscarPorUrl(url string) *Url {
-	for _, u := range r.urls {
-		if u.Destino == url {
-			return u
+func (r *repositorioRedis) DecodeURL(jsonURL []byte) *Url {
+	var url *Url
+
+	err := json.Unmarshal(jsonURL, &url)
+
+	if err != nil {
+		fmt.Println("error:", err)
+	}
+	return url
+}
+
+func (r *repositorioRedis) BuscarPorURL(urlDestino string) *Url {
+	urls, _ := client.Lrange("urls", 0, -1)
+
+	for _, u := range urls {
+		url := r.DecodeURL(u)
+		if url.Destino == urlDestino {
+			return url
 		}
 	}
 	return nil
@@ -41,11 +57,9 @@ func (r *repositorioRedis) BuscarPorUrl(url string) *Url {
 
 func (r *repositorioRedis) Salvar(url Url) error {
 	urlJSON, _ := json.Marshal(url)
-	client.Set(url.Id, []byte(urlJSON))
-	val, _ := client.Get(url.Id)
-	println(string(val))
-	client.Del(url.Id)
-	// r.urls[url.Id] = &url
+	// url.Id
+	client.Set("urls", []byte(urlJSON))
+	client.Del("urls")
 	return nil
 }
 
