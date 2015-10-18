@@ -34,9 +34,9 @@ type Redirecionador struct {
 }
 
 func (r *Redirecionador) ServeHTTP(w http.ResponseWriter, req *http.Request) {
-	buscarUrlEExecutar(w, req, func(url *url.Url) {
+	buscarURLEExecutar(w, req, func(url *url.URL) {
 		http.Redirect(w, req, url.Destino, http.StatusMovedPermanently)
-		r.stats <- url.Id
+		r.stats <- url.ID
 	})
 }
 
@@ -46,7 +46,7 @@ func Encurtador(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	url, nova, err := url.FindORCreateURL(extrairUrl(r))
+	url, nova, err := url.FindORCreateURL(extrairURL(r))
 
 	if err != nil {
 		responderCom(w, http.StatusBadRequest, nil)
@@ -60,18 +60,18 @@ func Encurtador(w http.ResponseWriter, r *http.Request) {
 		status = http.StatusOK
 	}
 
-	urlCurta := fmt.Sprintf("%s/r/%s", urlBase, url.Id)
+	urlCurta := fmt.Sprintf("%s/r/%s", urlBase, url.ID)
 
 	responderCom(w, status, Headers{
 		"Location": urlCurta,
-		"Link":     fmt.Sprintf("<%s/api/stats/%s>; rel=\"stats\"", urlBase, url.Id),
+		"Link":     fmt.Sprintf("<%s/api/stats/%s>; rel=\"stats\"", urlBase, url.ID),
 	})
 
 	logar("URL %s encurtada com sucesso para %s.", url.Destino, urlCurta)
 }
 
 func Visualizador(w http.ResponseWriter, r *http.Request) {
-	buscarUrlEExecutar(w, r, func(url *url.Url) {
+	buscarURLEExecutar(w, r, func(url *url.URL) {
 		json, err := json.Marshal(url.Stats())
 
 		if err != nil {
@@ -83,7 +83,7 @@ func Visualizador(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-func buscarUrlEExecutar(w http.ResponseWriter, r *http.Request, executor func(*url.Url)) {
+func buscarURLEExecutar(w http.ResponseWriter, r *http.Request, executor func(*url.URL)) {
 	caminho := strings.Split(r.URL.Path, "/")
 	id := caminho[len(caminho)-1]
 
@@ -106,7 +106,7 @@ func responderComJSON(w http.ResponseWriter, resposta string) {
 	fmt.Fprintf(w, resposta)
 }
 
-func extrairUrl(r *http.Request) string {
+func extrairURL(r *http.Request) string {
 	rawBody := make([]byte, r.ContentLength, r.ContentLength)
 	r.Body.Read(rawBody)
 	return string(rawBody)

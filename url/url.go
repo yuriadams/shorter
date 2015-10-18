@@ -15,14 +15,14 @@ const (
 	symbols = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_-+"
 )
 
-type Url struct {
-	Id      string    `json:"id"`
+type URL struct {
+	ID      string    `json:"id"`
 	Criacao time.Time `json:"criacao"`
 	Destino string    `json:"destino"`
 }
 
 type Stats struct {
-	Url    *Url `json:"url"`
+	URL    *URL `json:"url"`
 	Clicks int  `json:"clicks"`
 }
 
@@ -47,7 +47,7 @@ func FindClickByID(id string) int {
 	return clicks
 }
 
-func FindORCreateURL(destino string) (u *Url, nova bool, err error) {
+func FindORCreateURL(destino string) (u *URL, nova bool, err error) {
 	if u = FindByURL(destino); u != nil {
 		return u, false, nil
 	}
@@ -56,13 +56,13 @@ func FindORCreateURL(destino string) (u *Url, nova bool, err error) {
 		return nil, false, err
 	}
 
-	url := Url{makeID(), time.Now(), destino}
+	url := URL{makeID(), time.Now(), destino}
 	urlJSON, _ := json.Marshal(url)
-	client.Hset("urls", url.Id, []byte(urlJSON))
+	client.Hset("urls", url.ID, []byte(urlJSON))
 	return &url, true, nil
 }
 
-func FindByURL(urlDestino string) *Url {
+func FindByURL(urlDestino string) *URL {
 	urls, _ := client.Lrange("urls", 0, -1)
 
 	for _, u := range urls {
@@ -74,13 +74,13 @@ func FindByURL(urlDestino string) *Url {
 	return nil
 }
 
-func FindByID(id string) *Url {
+func FindByID(id string) *URL {
 	jsonURL, _ := client.Hget("urls", id)
 	return decodeURL(jsonURL)
 }
 
-func decodeURL(jsonURL []byte) *Url {
-	var url *Url
+func decodeURL(jsonURL []byte) *URL {
+	var url *URL
 
 	err := json.Unmarshal(jsonURL, &url)
 
@@ -90,8 +90,8 @@ func decodeURL(jsonURL []byte) *Url {
 	return url
 }
 
-func (u *Url) Stats() *Stats {
-	clicks := FindClickByID(u.Id)
+func (u *URL) Stats() *Stats {
+	clicks := FindClickByID(u.ID)
 	return &Stats{u, clicks}
 }
 
