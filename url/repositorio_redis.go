@@ -63,9 +63,14 @@ func (r *repositorioRedis) Salvar(url Url) error {
 
 func (r *repositorioRedis) RegistrarClick(id string) {
 	clicks := r.BuscarClicks(id)
-	client.Hset("clicks", id, clicks++)
+	clicks++
+	jsonClicks, _ := json.Marshal(clicks)
+	client.Hset("clicks", id, jsonClicks)
 }
 
 func (r *repositorioRedis) BuscarClicks(id string) int {
-	return client.Hget("clicks", id)
+	var clicks int
+	clicksJSON, _ := client.Hget("clicks", id)
+	json.Unmarshal(clicksJSON, clicks)
+	return clicks
 }
