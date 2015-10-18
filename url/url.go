@@ -11,8 +11,8 @@ import (
 )
 
 const (
-	tamanho  = 5
-	simbolos = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_-+"
+	size    = 5
+	symbols = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_-+"
 )
 
 type Url struct {
@@ -56,7 +56,7 @@ func FindORCreateURL(destino string) (u *Url, nova bool, err error) {
 		return nil, false, err
 	}
 
-	url := Url{gerarId(), time.Now(), destino}
+	url := Url{makeID(), time.Now(), destino}
 	urlJSON, _ := json.Marshal(url)
 	client.Hset("urls", url.Id, []byte(urlJSON))
 	return &url, true, nil
@@ -95,17 +95,17 @@ func (u *Url) Stats() *Stats {
 	return &Stats{u, clicks}
 }
 
-func gerarId() string {
-	novoId := func() string {
-		id := make([]byte, tamanho, tamanho)
+func makeID() string {
+	newID := func() string {
+		id := make([]byte, size, size)
 		for i := range id {
-			id[i] = simbolos[rand.Intn(len(simbolos))]
+			id[i] = symbols[rand.Intn(len(symbols))]
 		}
 		return string(id)
 	}
 
 	for {
-		if id := novoId(); !isThereID(id) {
+		if id := newID(); !isThereID(id) {
 			return id
 		}
 	}
