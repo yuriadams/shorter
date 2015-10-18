@@ -15,12 +15,14 @@ const (
 	symbols = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_-+"
 )
 
+// A URL represents a model to save the new short URL and Original URL.
 type URL struct {
 	ID      string    `json:"id"`
 	Criacao time.Time `json:"criacao"`
 	Destino string    `json:"destino"`
 }
 
+// A Stats represents the statistics. How many clicks by URL
 type Stats struct {
 	URL    *URL `json:"url"`
 	Clicks int  `json:"clicks"`
@@ -33,6 +35,7 @@ func init() {
 	client.Addr = "127.0.0.1:6379"
 }
 
+// SaveClick saves a incremeted click value for one URL
 func SaveClick(id string) {
 	clicks := FindClickByID(id)
 	clicks++
@@ -40,6 +43,7 @@ func SaveClick(id string) {
 	client.Hset("clicks", id, jsonClicks)
 }
 
+// FindClickByID returns the clicks quantity has one URL
 func FindClickByID(id string) int {
 	var clicks int
 	clicksJSON, _ := client.Hget("clicks", id)
@@ -47,6 +51,7 @@ func FindClickByID(id string) int {
 	return clicks
 }
 
+// FindORCreateURL returns a URL if it exists or create a new one
 func FindORCreateURL(destino string) (u *URL, nova bool, err error) {
 	if u = FindByURL(destino); u != nil {
 		return u, false, nil
@@ -62,6 +67,7 @@ func FindORCreateURL(destino string) (u *URL, nova bool, err error) {
 	return &url, true, nil
 }
 
+// FindByURL returns a URL by a url Origin
 func FindByURL(urlDestino string) *URL {
 	urls, _ := client.Lrange("urls", 0, -1)
 
@@ -74,6 +80,7 @@ func FindByURL(urlDestino string) *URL {
 	return nil
 }
 
+// FindByID returns a URL by its ID
 func FindByID(id string) *URL {
 	jsonURL, _ := client.Hget("urls", id)
 	return decodeURL(jsonURL)
@@ -90,9 +97,9 @@ func decodeURL(jsonURL []byte) *URL {
 	return url
 }
 
+// Stats returns statistics from a URL
 func (u *URL) Stats() *Stats {
-	clicks := FindClickByID(u.ID)
-	return &Stats{u, clicks}
+	return &Stats{u, FindClickByID(u.ID)}
 }
 
 func makeID() string {
