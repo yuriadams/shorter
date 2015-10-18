@@ -46,7 +46,7 @@ func Encurtador(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	url, nova, err := url.BuscarOuCriarNovaUrl(extrairUrl(r))
+	url, nova, err := url.FindORCreateURL(extrairUrl(r))
 
 	if err != nil {
 		responderCom(w, http.StatusBadRequest, nil)
@@ -87,7 +87,7 @@ func buscarUrlEExecutar(w http.ResponseWriter, r *http.Request, executor func(*u
 	caminho := strings.Split(r.URL.Path, "/")
 	id := caminho[len(caminho)-1]
 
-	if url := url.Buscar(id); url != nil {
+	if url := url.FindByID(id); url != nil {
 		executor(url)
 	} else {
 		http.NotFound(w, r)
@@ -114,7 +114,7 @@ func extrairUrl(r *http.Request) string {
 
 func registrarEstatisticas(stats <-chan string) {
 	for id := range stats {
-		url.RegistrarClick(id)
+		url.SaveClick(id)
 		logar("Click registrado com sucesso para %s.", id)
 	}
 }
@@ -126,7 +126,7 @@ func logar(formato string, valores ...interface{}) {
 }
 
 func main() {
-	url.ConfigurarRepositorio(url.NovoRepositorioRedis())
+	// url.ConfigurarRepositorio(url.NovoRepositorioRedis())
 
 	stats := make(chan string)
 	defer close(stats)

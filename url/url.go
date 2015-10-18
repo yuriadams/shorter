@@ -1,24 +1,19 @@
 package url
 
 import (
+	"encoding/json"
+	"fmt"
 	"math/rand"
 	"net/url"
 	"time"
+
+	"github.com/monnand/goredis"
 )
 
 const (
 	tamanho  = 5
 	simbolos = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_-+"
 )
-
-type Repositorio interface {
-	IDExiste(id string) bool
-	BuscarPorID(id string) *Url
-	BuscarPorURL(url string) *Url
-	Salvar(url Url) error
-	RegistrarClick(id string)
-	BuscarClicks(id string) int
-}
 
 type Url struct {
 	Id      string    `json:"id"`
@@ -31,22 +26,29 @@ type Stats struct {
 	Clicks int  `json:"clicks"`
 }
 
-var repo Repositorio
+var client goredis.Client
 
 func init() {
 	rand.Seed(time.Now().UnixNano())
+	client.Addr = "127.0.0.1:6379"
 }
 
-func ConfigurarRepositorio(r Repositorio) {
-	repo = r
+func SaveClick(id string) {
+	clicks := FindClickByID(id)
+	clicks++
+	jsonClicks, _ := json.Marshal(clicks)
+	client.Hset("clicks", id, jsonClicks)
 }
 
-func RegistrarClick(id string) {
-	repo.RegistrarClick(id)
+func FindClickByID(id string) int {
+	var clicks int
+	clicksJSON, _ := client.Hget("clicks", id)
+	json.Unmarshal(clicksJSON, clicks)
+	return clicks
 }
 
-func BuscarOuCriarNovaUrl(destino string) (u *Url, nova bool, err error) {
-	if u = repo.BuscarPorURL(destino); u != nil {
+func FindORCreateURL(destino string) (u *Url, nova bool, err error) {
+	if u = FindByURL(destino); u != nil {
 		return u, false, nil
 	}
 
@@ -55,16 +57,41 @@ func BuscarOuCriarNovaUrl(destino string) (u *Url, nova bool, err error) {
 	}
 
 	url := Url{gerarId(), time.Now(), destino}
-	repo.Salvar(url)
+	urlJSON, _ := json.Marshal(url)
+	client.Hset("urls", url.Id, []byte(urlJSON))
 	return &url, true, nil
 }
 
-func Buscar(id string) *Url {
-	return repo.BuscarPorID(id)
+func FindByURL(urlDestino string) *Url {
+	urls, _ := client.Lrange("urls", 0, -1)
+
+	for _, u := range urls {
+		url := decodeURL(u)
+		if url.Destino == urlDestino {
+			return url
+		}
+	}
+	return nil
+}
+
+func FindByID(id string) *Url {
+	jsonURL, _ := client.Hget("urls", id)
+	return decodeURL(jsonURL)
+}
+
+func decodeURL(jsonURL []byte) *Url {
+	var url *Url
+
+	err := json.Unmarshal(jsonURL, &url)
+
+	if err != nil {
+		fmt.Println("error:", err)
+	}
+	return url
 }
 
 func (u *Url) Stats() *Stats {
-	clicks := repo.BuscarClicks(u.Id)
+	clicks := FindClickByID(u.Id)
 	return &Stats{u, clicks}
 }
 
@@ -78,8 +105,13 @@ func gerarId() string {
 	}
 
 	for {
-		if id := novoId(); !repo.IDExiste(id) {
+		if id := novoId(); !isThereID(id) {
 			return id
 		}
 	}
+}
+
+func isThereID(id string) bool {
+	url := FindByURL(id)
+	return url != nil
 }
