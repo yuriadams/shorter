@@ -84,8 +84,8 @@ func Viewer(w http.ResponseWriter, r *http.Request) {
 }
 
 func findURLAndExecute(w http.ResponseWriter, r *http.Request, executor func(*url.URL)) {
-	caminho := strings.Split(r.URL.Path, "/")
-	id := caminho[len(caminho)-1]
+	path := strings.Split(r.URL.Path, "/")
+	id := path[len(path)-1]
 
 	if url := url.FindByID(id); url != nil {
 		executor(url)
