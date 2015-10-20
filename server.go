@@ -15,9 +15,9 @@ var (
 	logOn   *bool
 	port    *int
 	urlBase string
+	// stats   chan string
+	stats []string
 )
-
-var stats chan string
 
 func init() {
 	domain := flag.String("d", "localhost", "domain")
@@ -32,10 +32,6 @@ type Headers map[string]string
 
 func main() {
 	r := httprouter.New()
-	stats := make(chan string)
-	defer close(stats)
-	go saveStatistics(stats)
-
 	r.GET("/r/:id", DispatchHandler)
 	r.POST("/api/short", CreateShortedURLHandler)
 	r.GET("/api/stats/:id", ViewStatisticsHandler)
@@ -47,8 +43,9 @@ func main() {
 func DispatchHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	findURLAndExecute(w, r, p, func(url *url.URL) {
 		http.Redirect(w, r, url.Destino, http.StatusMovedPermanently)
-
-		// stats <- url.ID
+		stats := make([]string, 1)
+		stats = append(stats, url.ID)
+		saveStatistics(stats)
 	})
 }
 
@@ -77,10 +74,10 @@ func CreateShortedURLHandler(w http.ResponseWriter, r *http.Request, p httproute
 	logging("URL %s shorted with sucess to %s.", url.Destino, urlShorted)
 }
 
-func saveStatistics(stats <-chan string) {
-	for id := range stats {
-		url.SaveClick(id)
-		logging("Click saved with success %s.", id)
+func saveStatistics(stats []string) {
+	for _, v := range stats {
+		url.SaveClick(v)
+		logging("Click saved with success %s.", v)
 	}
 }
 
