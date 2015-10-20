@@ -15,8 +15,6 @@ var (
 	logOn   *bool
 	port    *int
 	urlBase string
-	// stats   chan string
-	stats []string
 )
 
 func init() {
@@ -43,9 +41,8 @@ func main() {
 func DispatchHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	findURLAndExecute(w, r, p, func(url *url.URL) {
 		http.Redirect(w, r, url.Destino, http.StatusMovedPermanently)
-		stats := make([]string, 1)
-		stats = append(stats, url.ID)
-		saveStatistics(stats)
+		url.SaveClick(url.ID)
+		logging("Click saved with success %s.", url.ID)
 	})
 }
 
@@ -72,13 +69,6 @@ func CreateShortedURLHandler(w http.ResponseWriter, r *http.Request, p httproute
 	})
 
 	logging("URL %s shorted with sucess to %s.", url.Destino, urlShorted)
-}
-
-func saveStatistics(stats []string) {
-	for _, v := range stats {
-		url.SaveClick(v)
-		logging("Click saved with success %s.", v)
-	}
 }
 
 func ViewStatisticsHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
