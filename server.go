@@ -39,10 +39,10 @@ func main() {
 }
 
 func DispatchHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	findURLAndExecute(w, r, p, func(url *url.URL) {
-		http.Redirect(w, r, url.Destino, http.StatusMovedPermanently)
-		url.SaveClick(url.ID)
-		logging("Click saved with success %s.", url.ID)
+	findURLAndExecute(w, r, p, func(u *url.URL) {
+		http.Redirect(w, r, u.Destino, http.StatusMovedPermanently)
+		url.SaveClick(u.ID)
+		logging("Click saved with success %s.", u.ID)
 	})
 }
 
