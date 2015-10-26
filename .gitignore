@@ -24,3 +24,12 @@ _testmain.go
 .DS_Store
 shorter
 dump.rdb
+
+node_modules
+dist
+.tmp
+.sass-cache
+.DS_Store
+coverage/
+bower_components/
+target/

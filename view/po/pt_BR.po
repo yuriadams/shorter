@@ -1,0 +1,362 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.4\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: app/views/board_models/index.html:7 app/views/radio_models/index.html:7
+#: app/views/sites/index.html:7
+msgid "<i class=\"fa fa-plus-circle\"></i> New"
+msgstr "<i class=\"fa fa-plus-circle\"></i> Novo"
+
+#: app/scripts/controllers/board_models.js:21
+#: app/scripts/controllers/radio_models.js:21
+#: app/scripts/controllers/sites.js:23
+msgid "Actions"
+msgstr "Ações"
+
+#: app/views/board_models/formModal.html:38
+#: app/views/radio_models/formModal.html:27
+msgid "Add"
+msgstr "Adicionar"
+
+#: app/views/board_models/formModal.html:5
+msgid "Board Model"
+msgstr "Modelos de Placa"
+
+#: app/scripts/controllers/board_model_form_modal.js:20
+#: app/scripts/controllers/board_model_form_modal.js:29
+msgid "Board Model successfuly saved."
+msgstr "Modelos de Placas salvas com sucesso."
+
+#: app/scripts/controllers/board_models.js:78
+msgid "BoardModel successfuly deleted"
+msgstr "Modelos de Placas excluídas com sucesso"
+
+#: app/views/board_models/formModal.html:37
+#: app/views/radio_models/formModal.html:26
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: app/views/board_models/formModal.html:20
+msgid "Capacity (Mb/s)"
+msgstr "Capacidade (Mb/s)"
+
+#: app/views/board_models/formModal.html:39
+#: app/views/radio_models/formModal.html:28
+msgid "Edit"
+msgstr "Editar"
+
+#: app/scripts/controllers/sites.js:21
+msgid "Endereço"
+msgstr "Endereço"
+
+#: app/scripts/controllers/board_models.js:41
+#: app/scripts/controllers/radio_model_form_modal.js:68
+msgid "Error loading board_models."
+msgstr "Erro ao carregar Modelos de Placas"
+
+#: app/scripts/controllers/radio_model_form_modal.js:21
+msgid "Error loading customer."
+msgstr ""
+
+#: app/scripts/controllers/board_model_form_modal.js:43
+msgid "Error loading gate_models."
+msgstr "Erro ao carregar modelos de Portas"
+
+#: app/scripts/controllers/radio_models.js:41
+msgid "Error loading radio models."
+msgstr "Erro ao carregar modelos de placas"
+
+#: app/scripts/controllers/sites.js:43
+msgid "Error loading sites."
+msgstr "Erro ao carregar sites"
+
+#: app/scripts/controllers/board_model_form_modal.js:22
+#: app/scripts/controllers/board_model_form_modal.js:31
+msgid "Error saving Board Model."
+msgstr "Erro ao salvar modelo de placa."
+
+#: app/scripts/controllers/radio_model_form_modal.js:47
+#: app/scripts/controllers/radio_model_form_modal.js:56
+msgid "Error saving radio Model."
+msgstr "Erro ao salvar modelo de radio."
+
+#: app/scripts/controllers/login.js:29
+msgid "Invalid email or password"
+msgstr "Email ou senha inválidos"
+
+#: app/views/board_models/formModal.html:14
+#: app/views/radio_models/formModal.html:12
+msgid "Name"
+msgstr "Nome"
+
+#: app/views/board_models/index.html:13 app/views/radio_models/index.html:13
+#: app/views/sites/index.html:13
+msgid "No data available"
+msgstr "Dados indisponíveis"
+
+#: app/scripts/controllers/board_models.js:19
+#: app/scripts/controllers/radio_models.js:19
+#: app/scripts/controllers/sites.js:20
+msgid "Nome"
+msgstr "Nome"
+
+#: app/views/radio_models/formModal.html:5
+msgid "Radio Model"
+msgstr "Modelo de Elemento de Radio"
+
+#: app/scripts/controllers/sites.js:19
+msgid "Sigla"
+msgstr "Sigla"
+
+#: app/views/partials/navbar.html:47
+msgid "Sign out"
+msgstr "Sair"
+
+#: app/scripts/controllers/board_models.js:80
+#: app/scripts/controllers/radio_models.js:87
+msgid "There's an error on your request"
+msgstr "Houve um erro com sua requisição"
+
+#: app/scripts/controllers/board_models.js:17
+#: app/scripts/controllers/radio_models.js:17
+#: app/scripts/controllers/sites.js:17
+msgid "create"
+msgstr "Criar"
+
+#: app/scripts/controllers/radio_model_form_modal.js:45
+#: app/scripts/controllers/radio_model_form_modal.js:54
+msgid "radio Model successfuly saved."
+msgstr ""
+
+#: app/scripts/controllers/radio_models.js:85
+msgid "radioModel successfuly deleted"
+msgstr ""
+
+#~ msgid "*"
+#~ msgstr "*"
+
+#~ msgid "<i class=\"fa fa-bars fa-lg\"></i> Link"
+#~ msgstr "<i class=\"fa fa-bars fa-lg\"></i> Abrir"
+
+#~ msgid "<i class=\"fa fa-pencil\"></i> Clear"
+#~ msgstr "<i class=\"fa fa-pencil\"></i> Limpar Dados"
+
+#~ msgid "Address"
+#~ msgstr "Endereço"
+
+#~ msgid "Agency"
+#~ msgstr "Agência"
+
+#~ msgid "Bank"
+#~ msgstr "Banco"
+
+#~ msgid "Beneficiary"
+#~ msgstr "Favorecido"
+
+#~ msgid "Beneficiary successfuly addded"
+#~ msgstr "Favorecido adicionado com êxito"
+
+#~ msgid "Beneficiary successfuly deleted"
+#~ msgstr "Favorecido removido com êxito"
+
+#~ msgid "Billing"
+#~ msgstr "Pagamento"
+
+#~ msgid "Branch"
+#~ msgstr "Filial"
+
+#~ msgid "Branch successfuly addded"
+#~ msgstr "Filial adicionada com sucesso"
+
+#~ msgid "Branch successfuly deleted"
+#~ msgstr "Filial Deletada com Sucesso"
+
+#~ msgid "Cannot load data."
+#~ msgstr "Não foi possível carregar os dados"
+
+#~ msgid "Cash Request"
+#~ msgstr "Solicitação de Numerário"
+
+#~ msgid "Change Password"
+#~ msgstr "Alterar Senha"
+
+#~ msgid "Consolidated Billing"
+#~ msgstr "Faturamento Consolidado"
+
+#~ msgid "Consolidated Invoice"
+#~ msgstr "Fatura Consolidada"
+
+#~ msgid "Cost Center"
+#~ msgstr "Centro de Custo"
+
+#~ msgid "Customer"
+#~ msgstr "Cliente"
+
+#~ msgid "Customer Group"
+#~ msgstr "Grupo de Cliente"
+
+#~ msgid "Customer Group successfuly addded"
+#~ msgstr "Grupo de Cliente criado com êxito"
+
+#~ msgid "Customer Group successfuly deleted"
+#~ msgstr "Grupo de Cliente deletado com êxito"
+
+#~ msgid "Customer Information"
+#~ msgstr "Informações Gerais"
+
+#~ msgid "Customer Profile"
+#~ msgstr "Configuração de cliente"
+
+#~ msgid "Customer Profile successfuly addded"
+#~ msgstr "Perfil de Cliente adicionado com sucesso"
+
+#~ msgid "Customer Profile successfuly saved."
+#~ msgstr "Perfil de Cliente salvo com sucesso"
+
+#~ msgid "Customer Profile updated successfuly"
+#~ msgstr "Perfil de Cliente alterado com sucesso"
+
+#~ msgid "Customer successfuly addded"
+#~ msgstr "Cliente criado com sucesso"
+
+#~ msgid "Customer successfuly deleted"
+#~ msgstr "Perfil de Cliente removido com sucesso"
+
+#~ msgid "Error loading beneficiaries."
+#~ msgstr "Erro ao carregar favorecidos"
+
+#~ msgid "Error loading branches."
+#~ msgstr "Erro ao carregar filiais"
+
+#~ msgid "Error loading countries"
+#~ msgstr "Erro ao carregar os países"
+
+#~ msgid "Error loading customer groups."
+#~ msgstr "Erro ao carregar os grupos de cliente"
+
+#~ msgid "Error loading customer profiles."
+#~ msgstr "Erro ao carregar as configurações do cliente"
+
+#~ msgid "Error loading customers."
+#~ msgstr "Erro ao carregar clientes"
+
+#~ msgid "Error loading groups."
+#~ msgstr "Erro ao carregar os grupos"
+
+#~ msgid "Error loading organizations"
+#~ msgstr "Erro ao carregar as organizações"
+
+#~ msgid "Error loading products"
+#~ msgstr "Erro ao carregar produtos"
+
+#~ msgid "Error loading products."
+#~ msgstr "Erro ao carregar os produtos"
+
+#~ msgid "Error loading services"
+#~ msgstr "Erro ao carregar serviços"
+
+#~ msgid "Error loading types."
+#~ msgstr "Erro ao carregar tipos"
+
+#~ msgid "Error saving Customer Profile."
+#~ msgstr "Erro ao salvar perfil de cliente"
+
+#~ msgid "Error updating customer profile"
+#~ msgstr "Erro ao alterar perfil de cliente"
+
+#~ msgid "Financial Account"
+#~ msgstr "Conta Financeira"
+
+#~ msgid "Invoice"
+#~ msgstr "Fatura"
+
+#~ msgid "Load DI Tax"
+#~ msgstr "Imposto sobre DI"
+
+#~ msgid "New Account"
+#~ msgstr "Nova Conta"
+
+#~ msgid "Number"
+#~ msgstr "Número"
+
+#~ msgid "Organization"
+#~ msgstr "Organização"
+
+#~ msgid "Organization successfuly addded"
+#~ msgstr "Organização adicionada com sucesso"
+
+#~ msgid "Organization successfuly deleted"
+#~ msgstr "Organização removida com sucesso"
+
+#~ msgid "Password"
+#~ msgstr "Senha"
+
+#~ msgid "Phone numbers"
+#~ msgstr "Telefones"
+
+#~ msgid "Principal Account Number"
+#~ msgstr "Número da Conta Principal"
+
+#~ msgid "Principal Agency"
+#~ msgstr "Número da Agência Principal"
+
+#~ msgid "Product"
+#~ msgstr "Produto"
+
+#~ msgid "Product successfuly addded"
+#~ msgstr "Produto criado com sucesso."
+
+#~ msgid "Product successfuly deleted"
+#~ msgstr "Produto deletado com sucesso"
+
+#~ msgid "Send To Bank"
+#~ msgstr "Envio para o Banco"
+
+#~ msgid "Service"
+#~ msgstr "Serviço"
+
+#~ msgid "Service successfuly addded"
+#~ msgstr "Serviço criado com sucesso"
+
+#~ msgid "Service successfuly deleted"
+#~ msgstr "Serviço deletado com sucesso"
+
+#~ msgid "Sign In"
+#~ msgstr "Entrar"
+
+#~ msgid "Street"
+#~ msgstr "Rua"
+
+#~ msgid "TaxID"
+#~ msgstr "CNPJ"
+
+#~ msgid "costCenter"
+#~ msgstr "Centro de Custo"
+
+#~ msgid "edit"
+#~ msgstr "Editar"
+
+#~ msgid "financialAccount"
+#~ msgstr "Conta Bancária"
+
+#~ msgid "fone"
+#~ msgstr "Telefone"
+
+#~ msgid "name"
+#~ msgstr "Nome"
+
+#~ msgid "taxID"
+#~ msgstr "CNPJ"
+
+#~ msgid "Logout"
+#~ msgstr "Logout"

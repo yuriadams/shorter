@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="app" ng-controller="AppCtrl">
+
+    <!-- Head -->
+    <head>
+        <meta charset="utf-8" />
+        <title page-title></title>
+
+        <meta name="description" content="blank page" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon">
+
+        <!--Basic Styles-->
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="assets/css/font-awesome.min.css" rel="stylesheet" />
+
+        <!--Fonts-->
+        <style>
+	        @@font-face {
+	            font-family: 'WYekan';
+	            src: url('/assets/fonts/BYekan.woff') format('woff');
+	            font-weight: normal;
+	            font-style: normal;
+	        }
+    	</style>
+        <link href="http://fonts.googleapis.com/earlyaccess/droidarabickufi.css" rel="stylesheet" type="text/css" />
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300"
+              rel="stylesheet" type="text/css">
+
+        <!--Beyond styles-->
+        <link href="assets/css/beyond.css" rel="stylesheet" />
+        <link href="assets/css/skins/darkblue.css" rel="stylesheet" />
+        <link href="assets/css/typicons.min.css" rel="stylesheet" />
+        <link href="assets/css/animate.min.css" rel="stylesheet" />
+        <!-- <link ng-href="{{settings.skin}}" rel="stylesheet" type="text/css" /> -->
+
+        <link href="assets/css/custom.css" rel="stylesheet" />
+
+        <link rel="stylesheet" href="../bower_components/angular-growl-v2/build/angular-growl.css" />
+        <link rel="stylesheet" href="../bower_components/components-font-awesome/css/font-awesome.css" />
+        <link rel="stylesheet" href="../bower_components/angular-loading-bar/build/loading-bar.css" />
+
+    </head>
+    <!-- /Head -->
+
+    <!-- Body -->
+    <body>
+        <div ui-view></div>
+        <!-- Add your site or application content here -->
+        <div class="wrapper">
+            <main-menu ng-show="isLogged()"></main-menu>
+            <div growl id="growl"></div>
+
+            <div ng-view="" class="col-md-10 col-md-offset-2 main" ></div>
+        </div>
+
+        <!-- Scripts -->
+
+        <!-- ../bower:js -->
+        <script src="../bower_components/jquery/dist/jquery.js"></script>
+        <script src="../bower_components/angular/angular.js"></script>
+        <script src="../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
+        <script src="../bower_components/angular-animate/angular-animate.js"></script>
+        <script src="../bower_components/angular-cookies/angular-cookies.js"></script>
+        <script src="../bower_components/angular-resource/angular-resource.js"></script>
+        <script src="../bower_components/angular-route/angular-route.js"></script>
+        <script src="../bower_components/angular-sanitize/angular-sanitize.js"></script>
+        <script src="../bower_components/angular-touch/angular-touch.js"></script>
+        <script src="../bower_components/angular-growl-v2/build/angular-growl.js"></script>
+        <script src="../bower_components/tv4/tv4.js"></script>
+        <script src="../bower_components/objectpath/lib/ObjectPath.js"></script>
+        <script src="../bower_components/angular-schema-form/dist/schema-form.js"></script>
+        <script src="../bower_components/angular-schema-form/dist/bootstrap-decorator.js"></script>
+        <script src="../bower_components/ngstorage/ngStorage.js"></script>
+        <script src="../bower_components/underscore/underscore.js"></script>
+        <script src="../bower_components/oauth-js/dist/oauth.min.js"></script>
+        <script src="../bower_components/angular-md5/angular-md5.js"></script>
+        <script src="../bower_components/angular-gettext/dist/angular-gettext.js"></script>
+        <script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+        <script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="../bower_components/br-validations/releases/br-validations.js"></script>
+        <script src="../bower_components/string-mask/src/string-mask.js"></script>
+        <script src="../bower_components/angular-input-masks/angular-input-masks-standalone.min.js"></script>
+        <script src="../bower_components/angular-loading-bar/build/loading-bar.js"></script>
+        <script src="../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+        <script src="../bower_components/angular-breadcrumb/release/angular-breadcrumb.js"></script>
+
+        <script src="lib/utilities.js"></script>
+        <script src="lib/angular/angular-ui-utils/angular-ui-utils.js"></script>
+        <script src="lib/jquery/bootstrap.js"></script>
+
+        <!-- App Config and Routing Scripts -->
+        <script src="app.js"></script>
+        <script src="config.js"></script>
+        <script src="config.router.js"></script>
+        <script src="beyond.js"></script>
+
+        <!-- Layout Related Directives -->
+        <script src="scripts/directives/loading.js"></script>
+        <script src="scripts/directives/skin.js"></script>
+        <script src="scripts/directives/sidebar.js"></script>
+        <script src="scripts/directives/header.js"></script>
+        <script src="scripts/directives/navbar.js"></script>
+        <script src="scripts/directives/widget.js"></script>
+
+        <!-- Controllers -->
+        <script src="scripts/controllers/main.js"></script>
+
+        <!-- Services -->
+        <script src="scripts/services/restapi.js"></script>
+        <script src="scripts/services/settings.js"></script>
+
+        <script src="scripts/translations.js"></script>
+    </body>
+    <!--  /Body -->
+</html>
