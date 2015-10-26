@@ -32,7 +32,7 @@ var client goredis.Client
 
 func init() {
 	rand.Seed(time.Now().UnixNano())
-	client.Addr = "127.0.0.1:6379"
+	client.Addr = "localhost:6379"
 }
 
 // SaveClick saves a incremeted click value for one URL
@@ -49,6 +49,27 @@ func FindClickByID(id string) int {
 	clicksJSON, _ := client.Hget("clicks", id)
 	json.Unmarshal(clicksJSON, clicks)
 	return clicks
+}
+
+// List returns all shorted URLs
+func List() []*Stats {
+	ids, _ := client.Hkeys("urls")
+	returnURL := make([]*Stats, len(ids))
+	for _, id := range ids {
+		url := FindByID(id)
+		returnURL = append(returnURL, url.Stats())
+	}
+	return clean(returnURL)
+}
+
+func clean (s []*Stats) []*Stats {
+    var r []*Stats
+    for _, str := range s {
+        if str != nil {
+            r = append(r, str)
+        }
+    }
+    return r
 }
 
 // FindORCreateURL returns a URL if it exists or create a new one

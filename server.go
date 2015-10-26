@@ -33,9 +33,21 @@ func main() {
 	r.GET("/r/:id", DispatchHandler)
 	r.POST("/api/short", CreateShortedURLHandler)
 	r.GET("/api/stats/:id", ViewStatisticsHandler)
+	r.GET("/api/stats", ListURLHandler)
 
 	logging("Starting server %d...", *port)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", *port), r))
+}
+
+func ListURLHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	json, err := json.Marshal(url.List())
+
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	respondWithJSON(w, string(json))
 }
 
 func DispatchHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
@@ -48,7 +60,6 @@ func DispatchHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params
 
 func CreateShortedURLHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	url, new, err := url.FindORCreateURL(extractURL(r))
-
 	if err != nil {
 		respondWith(w, http.StatusBadRequest, nil)
 		return
