@@ -90,10 +90,9 @@ func FindORCreateURL(destino string) (u *URL, nova bool, err error) {
 
 // FindByURL returns a URL by a url Origin
 func FindByURL(urlDestino string) *URL {
-	urls, _ := client.Lrange("urls", 0, -1)
-
-	for _, u := range urls {
-		url := decodeURL(u)
+	ids, _ := client.Hkeys("urls")
+	for _, u := range ids {
+		url := FindByID(id)
 		if url.Destino == urlDestino {
 			return url
 		}
