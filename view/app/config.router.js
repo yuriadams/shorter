@@ -11,7 +11,7 @@ angular.module('app')
                     .state('app.main', {
                         url: '/main',
                         templateUrl: 'views/application/main.html',
-                        ncyBreadcrumb: { label: 'Dashboard' }
+                        controller: 'MainCtrl'
                     })
             }
         ]

@@ -24,27 +24,21 @@
     <div class="col-xs-6 col-sm-8">
       <div class="well with-header  with-footer">
           <div class="header bg-blue">
-              Simple Table With Hover
+              URLs Statistics
           </div>
           <table class="table table-hover">
               <thead class="bordered-darkorange">
                   <tr>
-                      <th>
-                          #
-                      </th>
-                      <th>
-                          Name
-                      </th>
-                      <th>
-                          Family
-                      </th>
-                      <th>
-                          Username
-                      </th>
+                      <th>#</th>
+                      <th>Shorted URL</th>
+                      <th>Original URL</th>
+                      <th>Created At</th>
+                      <th>Clicks</th>
                   </tr>
               </thead>
               <tbody>
-                  <tr>
+                  <tr ng-repeat="stats in stats_list" ng-include="'views/application/stats.html'" ></tr>
+                  <!-- <tr>
                       <td>
                           1
                       </td>
@@ -58,6 +52,7 @@
                           steve
                       </td>
                   </tr>
+
                   <tr>
                       <td>
                           2
@@ -99,7 +94,7 @@
                       <td>
                           marim
                       </td>
-                  </tr>
+                  </tr> -->
               </tbody>
           </table>
       </div>

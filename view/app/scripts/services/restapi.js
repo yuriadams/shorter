@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('app')
-  .factory('RestAPI', ['$http', 'settings', function ($http, settings) {
-    var BASE_URL = settings.API_URL;
+  .factory('RestAPI', ['$http', function ($http) {
+    var BASE_URL = 'http://localhost:8888/';
 
     function patchDeferred (defer) {
       defer.always = function (callback) {
@@ -13,11 +13,9 @@ angular.module('app')
 
     // Public API here
     return {
-      get: function (model, id) {
-        var url = BASE_URL + model;
-        if (id !== undefined) {
-          url = url + '/' + id;
-        }
+      get: function (urlCompl) {
+        var url = BASE_URL + urlCompl;
+        debugger;
         var defer = $http.get(url);
         return patchDeferred(defer);
       },

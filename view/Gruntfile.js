@@ -6,8 +6,7 @@ module.exports = function(grunt) {
 
   require('load-grunt-config')(grunt, {
     config: {
-      yeoman: appConfig,
-      secret: grunt.file.readJSON('homol.json')
+      yeoman: appConfig
     }
   });
   require('load-grunt-tasks')(grunt);
