@@ -91,7 +91,7 @@ func FindORCreateURL(destino string) (u *URL, nova bool, err error) {
 // FindByURL returns a URL by a url Origin
 func FindByURL(urlDestino string) *URL {
 	ids, _ := client.Hkeys("urls")
-	for _, u := range ids {
+	for _, id := range ids {
 		url := FindByID(id)
 		if url.Destino == urlDestino {
 			return url
