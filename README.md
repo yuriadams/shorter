@@ -18,6 +18,11 @@ optional flags:
 -d domain
 -l log on/off
 
+Dependencies:
+
+go get github.com/rs/cors
+go get github.com/julienschmidt/httprouter
+
 Examples:
 .Short a URL:
 
