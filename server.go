@@ -118,7 +118,7 @@ func respondWith(w http.ResponseWriter, status int, headers Headers) {
 }
 
 func respondWithJSON(w http.ResponseWriter, resposta string) {
-	respondWith(w, http.StatusOK, Headers{"Content-Type": "application/json"})
+	respondWith(w, http.StatusOK, Headers{"Content-Type": "application/json", "Access-Control-Allow-Origin": "*"})
 	fmt.Fprintf(w, resposta)
 }
 
