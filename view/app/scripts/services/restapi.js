@@ -15,18 +15,12 @@ angular.module('app')
     return {
       get: function (urlCompl) {
         var url = BASE_URL + urlCompl;
-        debugger;
         var defer = $http.get(url);
         return patchDeferred(defer);
       },
-      create: function (model, data) {
-        var url = BASE_URL + model;
+      create: function (urlCompl, data) {
+        var url = BASE_URL + urlCompl;
         var defer = $http.post(url, data);
-        return patchDeferred(defer);
-      },
-      update: function (model, data, id) {
-        var url = BASE_URL + model + "/" + id;
-        var defer = $http.put(url, data);
         return patchDeferred(defer);
       }
     };

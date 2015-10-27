@@ -28,6 +28,14 @@ angular.module('app')
       });
     };
 
+    $scope.short = function(url) {
+      RestAPI.create('api/short', url).then(function() {
+        $scope.loadStats()
+      }, function(){
+        growl.error(gettext('Error!!!!!!'), {ttl: 3000});
+      });
+    };
+
     this.initComponent();
 
   }]);
