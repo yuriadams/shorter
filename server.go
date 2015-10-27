@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/rs/cors"
 	"github.com/julienschmidt/httprouter"
 	"github.com/yuriadams/shorter/url"
 )
@@ -35,8 +36,9 @@ func main() {
 	r.GET("/api/stats/:id", ViewStatisticsHandler)
 	r.GET("/api/stats", ListURLHandler)
 
+	handler := cors.Default().Handler(r)
 	logging("Starting server %d...", *port)
-	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", *port), r))
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", *port), handler))
 }
 
 func ListURLHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
@@ -118,7 +120,7 @@ func respondWith(w http.ResponseWriter, status int, headers Headers) {
 }
 
 func respondWithJSON(w http.ResponseWriter, resposta string) {
-	respondWith(w, http.StatusOK, Headers{"Content-Type": "application/json", "Access-Control-Allow-Origin": "*"})
+	respondWith(w, http.StatusOK, Headers{"Content-Type": "application/json"})
 	fmt.Fprintf(w, resposta)
 }
 
