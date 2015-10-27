@@ -8,9 +8,14 @@ It's necessary run redis before start go server:
 
 > redis-server
 
+Dependencies:
+
+> go get github.com/rs/cors
+> go get github.com/julienschmidt/httprouter
+
 Run server:
 
-go run server.go -p=8080 -l=true -d=localhost
+> go run server.go -p=8080 -l=true -d=localhost
 
 optional flags:
 
@@ -18,10 +23,9 @@ optional flags:
 -d domain
 -l log on/off
 
-Dependencies:
+Run Fronted:
 
-go get github.com/rs/cors
-go get github.com/julienschmidt/httprouter
+> cd views/ && grunt serve
 
 Examples:
 .Short a URL:
