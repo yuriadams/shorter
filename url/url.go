@@ -9,7 +9,6 @@ import (
 
 	"github.com/monnand/goredis"
 )
-
 const (
 	size    = 5
 	symbols = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_-+"
@@ -62,14 +61,14 @@ func List() []*Stats {
 	return clean(returnURL)
 }
 
-func clean (s []*Stats) []*Stats {
-    var r []*Stats
-    for _, str := range s {
-        if str != nil {
-            r = append(r, str)
-        }
-    }
-    return r
+func clean(s []*Stats) []*Stats {
+	var r []*Stats
+	for _, str := range s {
+		if str != nil {
+			r = append(r, str)
+		}
+	}
+	return r
 }
 
 // FindORCreateURL returns a URL if it exists or create a new one

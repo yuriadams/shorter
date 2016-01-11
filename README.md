@@ -1,7 +1,5 @@
 # shorter
 
-Serviço encurtador de URLs desenvolvido no livro "Programando em Go: crie aplicações com a linguagem do Google", da editora Casa do Código.
-
 Redis used as a data repository.
 
 It's necessary run redis before start go server:
@@ -22,10 +20,6 @@ optional flags:
 -p port
 -d domain
 -l log on/off
-
-Run Fronted:
-
-> cd views/ && grunt serve
 
 Examples:
 .Short a URL:

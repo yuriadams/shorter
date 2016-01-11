@@ -7,10 +7,11 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/rs/cors"
 	"github.com/julienschmidt/httprouter"
+	"github.com/rs/cors"
 	"github.com/yuriadams/shorter/url"
 )
+
 
 var (
 	logOn   *bool
