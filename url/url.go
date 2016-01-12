@@ -9,6 +9,7 @@ import (
 
 	"github.com/monnand/goredis"
 )
+
 const (
 	size    = 5
 	symbols = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_-+"
@@ -16,9 +17,9 @@ const (
 
 // A URL represents a model to save the new short URL and Original URL.
 type URL struct {
-	ID      string    `json:"id"`
-	Criacao time.Time `json:"criacao"`
-	Destino string    `json:"destino"`
+	ID        string    `json:"id"`
+	CreatedAt time.Time `json:"created_at"`
+	Destiny   string    `json:"destiny"`
 }
 
 // A Stats represents the statistics. How many clicks by URL
@@ -72,27 +73,27 @@ func clean(s []*Stats) []*Stats {
 }
 
 // FindORCreateURL returns a URL if it exists or create a new one
-func FindORCreateURL(destino string) (u *URL, nova bool, err error) {
-	if u = FindByURL(destino); u != nil {
+func FindORCreateURL(destiny string) (u *URL, nova bool, err error) {
+	if u = FindByURL(destiny); u != nil {
 		return u, false, nil
 	}
 
-	if _, err = url.ParseRequestURI(destino); err != nil {
+	if _, err = url.ParseRequestURI(destiny); err != nil {
 		return nil, false, err
 	}
 
-	url := URL{makeID(), time.Now(), destino}
+	url := URL{makeID(), time.Now(), destiny}
 	urlJSON, _ := json.Marshal(url)
 	client.Hset("urls", url.ID, []byte(urlJSON))
 	return &url, true, nil
 }
 
 // FindByURL returns a URL by a url Origin
-func FindByURL(urlDestino string) *URL {
+func FindByURL(urlDestiny string) *URL {
 	ids, _ := client.Hkeys("urls")
 	for _, id := range ids {
 		url := FindByID(id)
-		if url.Destino == urlDestino {
+		if url.Destiny == urlDestiny {
 			return url
 		}
 	}

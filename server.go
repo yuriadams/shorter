@@ -12,7 +12,6 @@ import (
 	"github.com/yuriadams/shorter/url"
 )
 
-
 var (
 	logOn   *bool
 	port    *int
@@ -55,7 +54,7 @@ func ListURLHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params)
 
 func DispatchHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	findURLAndExecute(w, r, p, func(u *url.URL) {
-		http.Redirect(w, r, u.Destino, http.StatusMovedPermanently)
+		http.Redirect(w, r, u.Destiny, http.StatusMovedPermanently)
 		url.SaveClick(u.ID)
 		logging("Click saved with success %s.", u.ID)
 	})
@@ -82,7 +81,7 @@ func CreateShortedURLHandler(w http.ResponseWriter, r *http.Request, p httproute
 		"Link":     fmt.Sprintf("<%s/api/stats/%s>; rel=\"stats\"", urlBase, url.ID),
 	})
 
-	logging("URL %s shorted with sucess to %s.", url.Destino, urlShorted)
+	logging("URL %s shorted with sucess to %s.", url.Destiny, urlShorted)
 }
 
 func ViewStatisticsHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
