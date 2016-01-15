@@ -38,15 +38,21 @@ func init() {
 // SaveClick saves a incremeted click value for one URL
 func SaveClick(id string) {
 	clicks := FindClickByID(id)
+	fmt.Println("clicks before:", clicks)
 	clicks++
 	jsonClicks, _ := json.Marshal(clicks)
-	client.Hset("clicks", id, jsonClicks)
+
+	err := client.Set("clicks_"+id, jsonClicks)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("clicks after:", FindClickByID(id))
 }
 
 // FindClickByID returns the clicks quantity has one URL
 func FindClickByID(id string) int {
 	var clicks int
-	clicksJSON, _ := client.Hget("clicks", id)
+	clicksJSON, _ := client.Get("clicks_" + id)
 	json.Unmarshal(clicksJSON, clicks)
 	return clicks
 }
