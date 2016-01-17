@@ -8,6 +8,7 @@ It's necessary run redis before start go server:
 
 Dependencies:
 
+> go get menteslibres.net/gosexy/redis
 > go get github.com/rs/cors
 > go get github.com/julienschmidt/httprouter
 
@@ -33,3 +34,7 @@ curl -v http://localhost:8080/r/IQMrd
 .View statistics
 
 curl -v http://localhost:8080/api/stats/IQMrd
+
+or
+
+curl -v http://localhost:8080/api/stats
