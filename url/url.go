@@ -3,11 +3,13 @@ package url
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"math/rand"
 	"net/url"
+	"strconv"
 	"time"
 
-	"github.com/monnand/goredis"
+	"menteslibres.net/gosexy/redis"
 )
 
 const (
@@ -28,38 +30,38 @@ type Stats struct {
 	Clicks int  `json:"clicks"`
 }
 
-var client goredis.Client
+var client *redis.Client
 
 func init() {
 	rand.Seed(time.Now().UnixNano())
-	client.Addr = "localhost:6379"
+	client = redis.New()
+	err := client.Connect("localhost", 6379)
+	if err != nil {
+		log.Fatalf("Connect failed: %s\n", err.Error())
+		return
+	}
+
+	log.Println("Connected to redis-server.")
 }
 
 // SaveClick saves a incremeted click value for one URL
 func SaveClick(id string) {
 	clicks := FindClickByID(id)
-	fmt.Println("clicks before:", clicks)
 	clicks++
 	jsonClicks, _ := json.Marshal(clicks)
-
-	err := client.Set("clicks_"+id, jsonClicks)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println("clicks after:", FindClickByID(id))
+	client.Set("clicks_"+id, jsonClicks)
 }
 
 // FindClickByID returns the clicks quantity has one URL
 func FindClickByID(id string) int {
-	var clicks int
 	clicksJSON, _ := client.Get("clicks_" + id)
-	json.Unmarshal(clicksJSON, clicks)
+	clicks, _ := strconv.Atoi(clicksJSON)
 	return clicks
 }
 
 // List returns all shorted URLs
 func List() []*Stats {
-	ids, _ := client.Hkeys("urls")
+	ids, _ := client.HKeys("urls")
 	returnURL := make([]*Stats, len(ids))
 	for _, id := range ids {
 		url := FindByID(id)
@@ -90,13 +92,13 @@ func FindORCreateURL(destiny string) (u *URL, nova bool, err error) {
 
 	url := URL{makeID(), time.Now(), destiny}
 	urlJSON, _ := json.Marshal(url)
-	client.Hset("urls", url.ID, []byte(urlJSON))
+	client.HSet("urls", url.ID, []byte(urlJSON))
 	return &url, true, nil
 }
 
 // FindByURL returns a URL by a url Origin
 func FindByURL(urlDestiny string) *URL {
-	ids, _ := client.Hkeys("urls")
+	ids, _ := client.HKeys("urls")
 	for _, id := range ids {
 		url := FindByID(id)
 		if url.Destiny == urlDestiny {
@@ -108,8 +110,8 @@ func FindByURL(urlDestiny string) *URL {
 
 // FindByID returns a URL by its ID
 func FindByID(id string) *URL {
-	jsonURL, _ := client.Hget("urls", id)
-	return decodeURL(jsonURL)
+	jsonURL, _ := client.HGet("urls", id)
+	return decodeURL([]byte(jsonURL))
 }
 
 func decodeURL(jsonURL []byte) *URL {
